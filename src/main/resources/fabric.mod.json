@@ -1,29 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "mocolors",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "Mo' Colors",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
-    "Me!"
+    "GabrielOlvH"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/GabrielOlvH/Mo-Colors"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "Apache-2.0",
+  "icon": "assets/mocolors/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "me.steven.mocolors.MoColors"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "mocolors.mixins.json"
   ],
 
   "depends": {
