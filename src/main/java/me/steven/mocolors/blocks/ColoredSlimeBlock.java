@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider {
+public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider, ColoredBlock {
     public ColoredSlimeBlock() {
         super(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK).nonOpaque());
     }

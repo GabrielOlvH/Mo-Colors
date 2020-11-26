@@ -11,7 +11,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredGlassPaneBlock extends PaneBlock implements BlockEntityProvider {
+public class ColoredGlassPaneBlock extends PaneBlock implements BlockEntityProvider, ColoredBlock {
     public ColoredGlassPaneBlock() {
         super(FabricBlockSettings.copyOf(Blocks.WHITE_STAINED_GLASS_PANE).nonOpaque());
     }
