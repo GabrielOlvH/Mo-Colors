@@ -19,12 +19,19 @@
   "entrypoints": {
     "main": [
       "me.steven.mocolors.MoColors"
+    ],
+    "client": [
+      "me.steven.mocolors.MoColorsClient"
+    ],
+    "cardinal-components-color": [
+      "me.steven.mocolors.MoColors"
     ]
   },
-  "mixins": [
-    "mocolors.mixins.json"
-  ],
-
+  "custom": {
+    "cardinal-components": [
+      "mocolors:color"
+    ]
+  },
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
