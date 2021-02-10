@@ -48,6 +48,7 @@ public class PainterScreenHandler extends SyncedGuiDescription  {
         int color = PainterItem.getColor(mainHandStack);
         hexCode.setText("#" + Integer.toHexString(color).toUpperCase(Locale.ROOT));
         hexCode.setTextPredicate((s) -> VALID_REGEX.matcher(s.toUpperCase(Locale.ROOT)).matches());
+        hexCode.setMaxLength(7);
         root.add(hexCode, 0, 2);
         hexCode.setSize(50, 20);
 
