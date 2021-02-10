@@ -28,7 +28,7 @@ public class MixinCauldronBlock {
             ItemStack itemStack = player.getStackInHand(hand);
             Item item = itemStack.getItem();
             if (item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof ColoredBlock) {
-                Item convert = ((ColoredBlock) ((BlockItem) item).getBlock()).convert();
+                Item convert = ((ColoredBlock) ((BlockItem) item).getBlock()).getCleanItem();
                 if (convert != null) {
                     world.setBlockState(pos, state.with(CauldronBlock.LEVEL, level - 1));
                     player.setStackInHand(hand, new ItemStack(convert, itemStack.getCount()));

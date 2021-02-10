@@ -11,7 +11,7 @@ public interface ColoredBlock {
     }
 
     @Nullable
-    default Item convert() {
+    default Item getCleanItem() {
         return null;
     }
 }

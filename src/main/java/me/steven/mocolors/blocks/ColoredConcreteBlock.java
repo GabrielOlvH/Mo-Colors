@@ -24,7 +24,7 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
     }
 
     @Override
-    public @Nullable Item convert() {
+    public @Nullable Item getCleanItem() {
         return Items.WHITE_CONCRETE;
     }
 

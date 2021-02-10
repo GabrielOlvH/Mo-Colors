@@ -24,7 +24,7 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
     }
 
     @Override
-    public @Nullable Item convert() {
+    public @Nullable Item getCleanItem() {
         return Items.SLIME_BLOCK;
     }
 

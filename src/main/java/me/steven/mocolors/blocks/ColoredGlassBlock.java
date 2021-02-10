@@ -24,7 +24,7 @@ public class ColoredGlassBlock extends GlassBlock implements BlockEntityProvider
     }
 
     @Override
-    public @Nullable Item convert() {
+    public @Nullable Item getCleanItem() {
         return Items.WHITE_STAINED_GLASS;
     }
 

@@ -24,7 +24,7 @@ public class ColoredGlassPaneBlock extends PaneBlock implements BlockEntityProvi
     }
 
     @Override
-    public @Nullable Item convert() {
+    public @Nullable Item getCleanItem() {
         return Items.WHITE_STAINED_GLASS_PANE;
     }
 

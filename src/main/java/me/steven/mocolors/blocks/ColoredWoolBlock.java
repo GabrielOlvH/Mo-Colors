@@ -24,7 +24,7 @@ public class ColoredWoolBlock extends Block implements BlockEntityProvider, Colo
     }
 
     @Override
-    public @Nullable Item convert() {
+    public @Nullable Item getCleanItem() {
         return Items.WHITE_WOOL;
     }
 
