@@ -1,33 +1,49 @@
 package me.steven.mocolors.blocks;
 
 import me.steven.mocolors.MoColors;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.CompoundTag;
 
-import java.util.concurrent.ThreadLocalRandom;
+public class ColoredBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
 
-public class ColoredBlockEntity extends BlockEntity {
-
-    private int rgb;
+    private int color;
 
     public ColoredBlockEntity() {
         super(MoColors.COLORED_BLOCK_ENTITY_TYPE);
-        rgb = ThreadLocalRandom.current().nextInt();
     }
 
-    public int getRGB() {
-        return rgb;
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int rgb) {
+        this.color = rgb;
     }
 
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
-        this.rgb = tag.getInt("rgb");
+        super.fromTag(state, tag);
+        this.color = tag.getInt("rgb");
     }
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag.putInt("rgb", rgb);
+        tag.putInt("rgb", color);
+        return super.toTag(tag);
+    }
+
+    @Override
+    public void fromClientTag(CompoundTag tag) {
+        this.color = tag.getInt("rgb");
+        MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, null, null, 8);
+    }
+
+    @Override
+    public CompoundTag toClientTag(CompoundTag tag) {
+        tag.putInt("rgb", color);
         return tag;
     }
 }

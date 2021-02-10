@@ -13,9 +13,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredWoolBlock extends Block implements BlockEntityProvider, ColoredBlock {
-    public ColoredWoolBlock() {
-        super(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque());
+public class ColoredConcreteBlock extends Block implements BlockEntityProvider, ColoredBlock {
+    public ColoredConcreteBlock() {
+        super(FabricBlockSettings.copyOf(Blocks.BLACK_CONCRETE).nonOpaque());
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ColoredWoolBlock extends Block implements BlockEntityProvider, Colo
 
     @Override
     public @Nullable Item convert() {
-        return Items.WHITE_WOOL;
+        return Items.WHITE_CONCRETE;
     }
 
     @Override

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "me.steven.mocolors.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBlock",
+    "MixinCauldronBlock"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

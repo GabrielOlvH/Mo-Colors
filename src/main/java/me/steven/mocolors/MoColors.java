@@ -2,14 +2,19 @@ package me.steven.mocolors;
 
 import me.steven.mocolors.blocks.*;
 import me.steven.mocolors.blocks.models.*;
+import me.steven.mocolors.gui.PainterScreenHandler;
+import me.steven.mocolors.items.PainterItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -29,7 +34,16 @@ public class MoColors implements ModInitializer {
 	public static final Block COLORED_WOOL = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "colored_wool"), new ColoredWoolBlock());
 	public static final Item COLORED_WOOL_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "colored_wool"), new BlockItem(COLORED_WOOL, new Item.Settings()));
 
-	public static final BlockEntityType<ColoredBlockEntity> COLORED_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colored_block"), BlockEntityType.Builder.create(ColoredBlockEntity::new, COLORED_GLASS, COLORED_SLIME, COLORED_GLASS_PANE).build(null));
+	public static final Block COLORED_CONCRETE = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "colored_concrete"), new ColoredConcreteBlock());
+	public static final Item COLORED_CONCRETE_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "colored_concrete"), new BlockItem(COLORED_CONCRETE, new Item.Settings()));
+
+	public static final Item PAINTER_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "painter"), new PainterItem());
+
+	public static final BlockEntityType<ColoredBlockEntity> COLORED_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colored_block"), BlockEntityType.Builder.create(ColoredBlockEntity::new, COLORED_GLASS, COLORED_SLIME, COLORED_GLASS_PANE, COLORED_CONCRETE).build(null));
+
+	public static final ScreenHandlerType<PainterScreenHandler> DYE_MIXER_TYPE = ScreenHandlerRegistry.registerSimple(PainterScreenHandler.SCREEN_ID, PainterScreenHandler::new);
+
+	public static final Identifier UPDATE_PAINTER_COLOR_PACKET = new Identifier(MOD_ID, "update_painter_color");
 
 	@Override
 	public void onInitialize() {
@@ -37,6 +51,7 @@ public class MoColors implements ModInitializer {
 		ColoredBakedModel slimeBakedModel = new ColoredSlimeBakedModel();
 		ColoredBakedModel glassPaneBakedModel = new ColoredGlassPaneModel();
 		ColoredBakedModel woolBakedModel = new ColoredWoolBakedModel();
+		ColoredBakedModel concreteBakedModel = new ColoredConcreteBakedModel();
 		ModelLoadingRegistry.INSTANCE.registerVariantProvider((res) -> (modelId, ctx) -> {
 			if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_glass"))
 				return glassBakedModel;
@@ -46,7 +61,17 @@ public class MoColors implements ModInitializer {
 				return glassPaneBakedModel;
 			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_wool"))
 				return woolBakedModel;
+			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_concrete"))
+				return concreteBakedModel;
 			return null;
+		});
+
+		ServerPlayNetworking.registerGlobalReceiver(UPDATE_PAINTER_COLOR_PACKET, (server, player, handler, buf, responseSender) -> {
+			int color = buf.readInt();
+			server.execute(() -> {
+				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+				stack.getOrCreateTag().putInt("Color", color);
+			});
 		});
 	}
 }

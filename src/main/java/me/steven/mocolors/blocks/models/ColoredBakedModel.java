@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.*;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.ModelIdentifier;
@@ -35,7 +37,7 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
         ctx.pushTransform((q) -> {
             ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
-            int rawColor = blockEntity.getRGB();
+            int rawColor = blockEntity.getColor();
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
             return true;
@@ -46,7 +48,14 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
 
     @Override
     public void emitItemQuads(ItemStack itemStack, Supplier<Random> supplier, RenderContext ctx) {
+        ctx.pushTransform((q) -> {
+            int rawColor = itemStack.getOrCreateTag().getInt("Color");
+            int color = 255 << 24 | rawColor;
+            q.spriteColor(0, color, color, color, color);
+            return true;
+        });
         ctx.fallbackConsumer().accept(getBaseBakedModel());
+        ctx.popTransform();
     }
 
     @Override
