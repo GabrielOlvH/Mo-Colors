@@ -2,6 +2,7 @@ package me.steven.mocolors.gui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WTextField;
 import io.netty.buffer.Unpooled;
 import me.steven.mocolors.MoColors;
@@ -30,19 +31,25 @@ public class PainterScreenHandler extends SyncedGuiDescription  {
         this.rootPanel = root;
 
         WColorVisualizer colorVisualizer = new WColorVisualizer();
-        root.add(colorVisualizer, 5, 2);
+        root.add(colorVisualizer, 3, 2);
+        colorVisualizer.setLocation(4 * 18, 2 * 18 + 1);
         colorVisualizer.setColorProvider(() -> {
             if (VALID_REGEX.matcher(hexCode.getText().toUpperCase(Locale.ROOT)).matches()) {
                 return Integer.decode("0x" + hexCode.getText().substring(1));
             } else return -1;
         });
 
+
+        WLabel label = new WLabel("Color (#RRGGBB)");
+        root.add(label, 0, 1);
+        label.setLocation(0, 22);
+
         ItemStack mainHandStack = playerInventory.getMainHandStack();
         int color = PainterItem.getColor(mainHandStack);
         hexCode.setText("#" + Integer.toHexString(color).toUpperCase(Locale.ROOT));
         hexCode.setTextPredicate((s) -> VALID_REGEX.matcher(s.toUpperCase(Locale.ROOT)).matches());
-        root.add(hexCode, 1, 1);
-        hexCode.setSize(70, 20);
+        root.add(hexCode, 0, 2);
+        hexCode.setSize(50, 20);
 
         root.validate(this);
     }

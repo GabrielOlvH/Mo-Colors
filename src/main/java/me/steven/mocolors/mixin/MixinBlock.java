@@ -35,7 +35,8 @@ public class MixinBlock implements ColoredBlock {
         if (blockEntity == null) blockEntity = world.getBlockEntity(pos);
         ((ColoredBlockEntity)blockEntity).setColor(color);
         blockEntity.markDirty();
-        ((ColoredBlockEntity)blockEntity).sync();
+        if (!world.isClient())
+            ((ColoredBlockEntity)blockEntity).sync();
         
         return true;
     }

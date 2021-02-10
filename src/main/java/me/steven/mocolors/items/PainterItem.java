@@ -29,14 +29,13 @@ public class PainterItem extends Item implements NamedScreenHandlerFactory {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        if (world.isClient) return ActionResult.CONSUME;
         BlockPos blockPos = context.getBlockPos();
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         if (block instanceof ColoredBlock) {
             if (((ColoredBlock) block).setColor(world, blockPos, getColor(context.getStack()))) {
                 context.getStack().damage(1, context.getPlayer(), (c) -> c.sendToolBreakStatus(context.getHand()));
-                return ActionResult.CONSUME;
+                return ActionResult.success(world.isClient());
             }
         }
         return ActionResult.PASS;
