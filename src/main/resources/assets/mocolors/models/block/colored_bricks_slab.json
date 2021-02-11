@@ -3,7 +3,8 @@
   "textures": {
     "bottom": "mocolors:block/gray_bricks",
     "top": "mocolors:block/gray_bricks",
-    "side": "mocolors:block/gray_bricks"
+    "side": "mocolors:block/gray_bricks",
+    "particle": "mocolors:block/gray_bricks"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

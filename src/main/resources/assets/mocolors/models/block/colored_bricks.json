@@ -1,7 +1,8 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "mocolors:block/gray_bricks"
+    "all": "mocolors:block/gray_bricks",
+    "particle": "mocolors:block/gray_bricks"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

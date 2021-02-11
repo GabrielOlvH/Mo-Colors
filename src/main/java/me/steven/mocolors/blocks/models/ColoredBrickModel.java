@@ -20,7 +20,7 @@ import java.util.function.Function;
 public class ColoredBrickModel extends ColoredBakedModel {
 
     protected BakedModel brickBakedModel;
-    private Sprite sprite;
+    protected Sprite sprite;
     private final SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(MoColors.MOD_ID, "block/gray_bricks"));
 
     @Override

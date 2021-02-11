@@ -1,7 +1,9 @@
 package me.steven.mocolors.utils;
 
 import com.google.common.collect.Lists;
+import me.steven.mocolors.MoColors;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 
 import java.util.List;
@@ -82,4 +84,24 @@ public class ConvertableBlocks {
             Blocks.RED_STAINED_GLASS_PANE,
             Blocks.BLACK_STAINED_GLASS_PANE
     );
+
+    public static BlockState convert(Block block) {
+        if (ConvertableBlocks.WOOL_BLOCKS.contains(block)) {
+            return MoColors.COLORED_WOOL.getDefaultState();
+        } else if (ConvertableBlocks.CONCRETE_BLOCKS.contains(block)) {
+            return MoColors.COLORED_CONCRETE.getDefaultState();
+        } else if (block == Blocks.SLIME_BLOCK) {
+            return MoColors.COLORED_SLIME.getDefaultState();
+        } else if (block == Blocks.BRICKS) {
+            return MoColors.COLORED_BRICKS.getDefaultState();
+        } else if (block == Blocks.BRICK_STAIRS) {
+            return MoColors.COLORED_BRICKS_STAIRS.getDefaultState();
+        } else if (block == Blocks.BRICK_SLAB) {
+            return MoColors.COLORED_BRICKS_SLAB.getDefaultState();
+        } else if (ConvertableBlocks.GLASS_BLOCKS.contains(block)) {
+            return MoColors.COLORED_GLASS.getDefaultState();
+        } else if (ConvertableBlocks.GLASS_PANE_BLOCKS.contains(block)) {
+            return MoColors.COLORED_GLASS_PANE.getDefaultState();
+        } else return null;
+    }
 }
