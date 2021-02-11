@@ -34,11 +34,11 @@ public class ColoredBrickSlabModel extends ColoredBrickModel {
             q.spriteColor(0, color, color, color, color);
             return true;
         });
-        BlockState vanillaStairs = Blocks.BRICK_SLAB.getDefaultState();
+        BlockState vanillaSlab = Blocks.BRICK_SLAB.getDefaultState();
         for (Property prop : blockState.getProperties()) {
-            vanillaStairs = vanillaStairs.with(prop, blockState.get(prop));
+            vanillaSlab = vanillaSlab.with(prop, blockState.get(prop));
         }
-        BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(vanillaStairs);
+        BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(vanillaSlab);
         ctx.fallbackConsumer().accept(model);
         ctx.popTransform();
     }
