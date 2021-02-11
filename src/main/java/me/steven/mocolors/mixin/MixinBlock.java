@@ -28,6 +28,12 @@ public class MixinBlock implements ColoredBlock {
                 world.setBlockState(pos, MoColors.COLORED_CONCRETE.getDefaultState());
             } else if (block == Blocks.SLIME_BLOCK) {
                 world.setBlockState(pos, MoColors.COLORED_SLIME.getDefaultState());
+            } else if (block == Blocks.BRICKS) {
+                world.setBlockState(pos, MoColors.COLORED_BRICKS.getDefaultState());
+            } else if (block == Blocks.BRICK_STAIRS) {
+                world.setBlockState(pos, MoColors.COLORED_BRICKS_STAIRS.getDefaultState());
+            } else if (block == Blocks.BRICK_SLAB) {
+                world.setBlockState(pos, MoColors.COLORED_BRICKS_SLAB.getDefaultState());
             } else if (ConvertableBlocks.GLASS_BLOCKS.contains(block)) {
                 world.setBlockState(pos, MoColors.COLORED_GLASS.getDefaultState());
             } else if (ConvertableBlocks.GLASS_PANE_BLOCKS.contains(block)) {
@@ -40,11 +46,11 @@ public class MixinBlock implements ColoredBlock {
             } else return false;
         }
         if (blockEntity == null) blockEntity = world.getBlockEntity(pos);
-        ((ColoredBlockEntity)blockEntity).setColor(color);
+        ((ColoredBlockEntity) blockEntity).setColor(color);
         blockEntity.markDirty();
         if (!world.isClient())
-            ((ColoredBlockEntity)blockEntity).sync();
-        
+            ((ColoredBlockEntity) blockEntity).sync();
+
         return true;
     }
 }
