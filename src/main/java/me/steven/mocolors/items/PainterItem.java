@@ -33,7 +33,7 @@ public class PainterItem extends Item implements NamedScreenHandlerFactory {
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         if (block instanceof ColoredBlock) {
-            if (((ColoredBlock) block).setColor(world, blockPos, getColor(context.getStack()))) {
+            if (((ColoredBlock) block).setColor(context, world, blockPos, getColor(context.getStack()))) {
                 context.getStack().damage(1, context.getPlayer(), (c) -> c.sendToolBreakStatus(context.getHand()));
                 return ActionResult.success(world.isClient());
             }
