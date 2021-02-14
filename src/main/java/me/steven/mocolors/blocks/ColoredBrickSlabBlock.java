@@ -97,12 +97,4 @@ public class ColoredBrickSlabBlock extends SlabBlock implements BlockEntityProvi
             return direction != Direction.DOWN && (direction == Direction.UP || !(ctx.getHitPos().y - (double)blockPos.getY() > 0.5D)) ? blockState2 : blockState2.with(TYPE, SlabType.TOP);
         }
     }
-
-    @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        ItemStack stack = super.getPickStack(world, pos, state);
-        ColoredBlockEntity blockEntity = (ColoredBlockEntity) world.getBlockEntity(pos);
-        stack.getOrCreateTag().putInt("Color", blockEntity.getColor());
-        return stack;
-    }
 }
