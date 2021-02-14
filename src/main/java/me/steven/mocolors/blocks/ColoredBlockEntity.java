@@ -26,24 +26,24 @@ public class ColoredBlockEntity extends BlockEntity implements BlockEntityClient
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
-        this.color = tag.getInt("rgb");
+        this.color = tag.getInt("c");
     }
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag.putInt("rgb", color);
+        tag.putInt("c", color);
         return super.toTag(tag);
     }
 
     @Override
     public void fromClientTag(CompoundTag tag) {
-        this.color = tag.getInt("rgb");
+        this.color = tag.getInt("c");
         MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, null, null, 8);
     }
 
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
-        tag.putInt("rgb", color);
+        tag.putInt("c", color);
         return tag;
     }
 }

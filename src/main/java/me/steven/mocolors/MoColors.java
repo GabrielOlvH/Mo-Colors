@@ -48,8 +48,8 @@ public class MoColors implements ModInitializer {
 
 	public static final Item PAINTER_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "painter"), new PainterItem());
 
-	public static final BlockEntityType<ColoredBlockEntity> COLORED_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colored_block"), BlockEntityType.Builder.create(ColoredBlockEntity::new, COLORED_GLASS, COLORED_SLIME, COLORED_GLASS_PANE, COLORED_CONCRETE, COLORED_BRICKS, COLORED_BRICKS_STAIRS).build(null));
-	public static final BlockEntityType<ColoredSlabBlockEntity> COLORED_SLAB_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "colored_slab_block"), BlockEntityType.Builder.create(ColoredSlabBlockEntity::new, COLORED_BRICKS_SLAB).build(null));
+	public static final BlockEntityType<ColoredBlockEntity> COLORED_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("mcs", "c"), BlockEntityType.Builder.create(ColoredBlockEntity::new, COLORED_GLASS, COLORED_SLIME, COLORED_GLASS_PANE, COLORED_CONCRETE, COLORED_BRICKS, COLORED_BRICKS_STAIRS).build(null));
+	public static final BlockEntityType<ColoredSlabBlockEntity> COLORED_SLAB_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("mcs", "cs"), BlockEntityType.Builder.create(ColoredSlabBlockEntity::new, COLORED_BRICKS_SLAB).build(null));
 
 	public static final ScreenHandlerType<PainterScreenHandler> DYE_MIXER_TYPE = ScreenHandlerRegistry.registerSimple(PainterScreenHandler.SCREEN_ID, PainterScreenHandler::new);
 

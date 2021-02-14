@@ -28,9 +28,9 @@ public class ColoredBrickStairsModel extends ColoredBrickModel {
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
+        ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
         ctx.pushTransform((q) -> {
             q.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
-            ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
             int rawColor = blockEntity.getColor();
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);

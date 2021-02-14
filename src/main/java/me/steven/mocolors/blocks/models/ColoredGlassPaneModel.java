@@ -46,8 +46,8 @@ public class ColoredGlassPaneModel extends ColoredBakedModel {
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
+        ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
         ctx.pushTransform((q) -> {
-            ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
             int rawColor = blockEntity.getColor();
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
