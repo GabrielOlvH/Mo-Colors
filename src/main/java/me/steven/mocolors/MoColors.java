@@ -1,11 +1,9 @@
 package me.steven.mocolors;
 
 import me.steven.mocolors.blocks.*;
-import me.steven.mocolors.blocks.models.*;
 import me.steven.mocolors.gui.PainterScreenHandler;
 import me.steven.mocolors.items.PainterItem;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
@@ -57,34 +55,6 @@ public class MoColors implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ColoredBakedModel glassBakedModel = new ColoredGlassBakedModel();
-		ColoredBakedModel slimeBakedModel = new ColoredSlimeBakedModel();
-		ColoredBakedModel glassPaneBakedModel = new ColoredGlassPaneModel();
-		ColoredBakedModel woolBakedModel = new ColoredWoolBakedModel();
-		ColoredBakedModel concreteBakedModel = new ColoredConcreteBakedModel();
-		ColoredBakedModel brickBakedModel = new ColoredBrickModel();
-		ColoredBakedModel brickSlabBakedModel = new ColoredBrickSlabModel();
-		ColoredBakedModel brickStairsBakedModel = new ColoredBrickStairsModel();
-		ModelLoadingRegistry.INSTANCE.registerVariantProvider((res) -> (modelId, ctx) -> {
-			if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_glass"))
-				return glassBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_slime"))
-				return slimeBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_glass_pane"))
-				return glassPaneBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_wool"))
-				return woolBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_concrete"))
-				return concreteBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_bricks"))
-				return brickBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_bricks_stairs"))
-				return brickStairsBakedModel;
-			else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_bricks_slab"))
-				return brickSlabBakedModel;
-			return null;
-		});
-
 		ServerPlayNetworking.registerGlobalReceiver(UPDATE_PAINTER_COLOR_PACKET, (server, player, handler, buf, responseSender) -> {
 			int color = buf.readInt();
 			server.execute(() -> {
