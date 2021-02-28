@@ -9,6 +9,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,6 +21,8 @@ import net.minecraft.client.render.RenderLayer;
 public class MoColorsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+
+        HudRenderCallback.EVENT.register(new HudRenderer());
 
         ColoredBakedModel glassBakedModel = new ColoredGlassBakedModel();
         ColoredBakedModel slimeBakedModel = new ColoredSlimeBakedModel();
