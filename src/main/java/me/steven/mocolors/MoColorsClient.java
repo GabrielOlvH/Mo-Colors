@@ -6,6 +6,7 @@ import me.steven.mocolors.blocks.ColoredSlabBlockEntity;
 import me.steven.mocolors.blocks.models.*;
 import me.steven.mocolors.gui.PainterScreen;
 import me.steven.mocolors.gui.PainterScreenHandler;
+import me.steven.mocolors.items.PainterBakedModel;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -37,6 +38,7 @@ public class MoColorsClient implements ClientModInitializer {
 
         HudRenderCallback.EVENT.register(new HudRenderer());
 
+        PainterBakedModel painterBakedModel = new PainterBakedModel();
         ColoredBakedModel glassBakedModel = new ColoredGlassBakedModel();
         ColoredBakedModel slimeBakedModel = new ColoredSlimeBakedModel();
         ColoredBakedModel glassPaneBakedModel = new ColoredGlassPaneModel();
@@ -62,9 +64,10 @@ public class MoColorsClient implements ClientModInitializer {
                 return brickStairsBakedModel;
             else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("colored_bricks_slab"))
                 return brickSlabBakedModel;
+            else if (modelId.getNamespace().equals("mocolors") && modelId.getPath().equals("painter"))
+                return painterBakedModel;
             return null;
         });
-
 
         BlockRenderLayerMap.INSTANCE.putBlock(MoColors.COLORED_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(MoColors.COLORED_SLIME, RenderLayer.getTranslucent());
