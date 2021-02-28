@@ -12,9 +12,14 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.util.Locale;
 
 public class MoColors implements ModInitializer {
 
@@ -53,13 +58,27 @@ public class MoColors implements ModInitializer {
 
 	public static final Identifier UPDATE_PAINTER_COLOR_PACKET = new Identifier(MOD_ID, "update_painter_color");
 
+	public static final Identifier PAINTER_COLOR_PICK_PACKET = new Identifier(MOD_ID, "color_pick");
+
 	@Override
 	public void onInitialize() {
 		ServerPlayNetworking.registerGlobalReceiver(UPDATE_PAINTER_COLOR_PACKET, (server, player, handler, buf, responseSender) -> {
 			int color = buf.readInt();
 			server.execute(() -> {
 				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
-				stack.getOrCreateTag().putInt("Color", color);
+				if (stack.getItem() == PAINTER_ITEM)
+					stack.getOrCreateTag().putInt("Color", color);
+			});
+		});
+
+		ServerPlayNetworking.registerGlobalReceiver(PAINTER_COLOR_PICK_PACKET, (server, player, handler, buf, responseSender) -> {
+			int color = buf.readInt();
+			server.execute(() -> {
+				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+				if (stack.getItem() == PAINTER_ITEM) {
+					stack.getOrCreateTag().putInt("Color", color);
+					player.sendMessage(new LiteralText("Picked color #" + Integer.toHexString(color).toUpperCase(Locale.ROOT)).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))), true);
+				}
 			});
 		});
 	}

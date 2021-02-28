@@ -17,6 +17,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.Locale;
+
 public class HudRenderer implements HudRenderCallback {
     @Override
     public void onHudRender(MatrixStack matrices, float tickDelta) {
@@ -38,7 +40,7 @@ public class HudRenderer implements HudRenderCallback {
                 textRenderer.draw(matrices, colorPickTxt, x, y + 8, -1);
                 int color = ((ColoredBlockEntity) blockEntity).getColor();
                 ScreenDrawing.coloredRect(x, y + 18, width, textRenderer.fontHeight, 255 << 24 | color);
-                textRenderer.draw(matrices, new LiteralText("#" + Integer.toHexString(color)), x, y + 19, getTextColor(color));
+                textRenderer.draw(matrices, new LiteralText("#" + Integer.toHexString(color).toUpperCase(Locale.ROOT)), x, y + 19, getTextColor(color));
             }
         }
     }
