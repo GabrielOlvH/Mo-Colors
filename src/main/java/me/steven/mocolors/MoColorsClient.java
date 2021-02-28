@@ -1,12 +1,12 @@
 package me.steven.mocolors;
 
 import me.steven.mocolors.blocks.ColoredBlock;
-import me.steven.mocolors.blocks.ColoredBlockEntity;
 import me.steven.mocolors.blocks.ColoredSlabBlockEntity;
 import me.steven.mocolors.blocks.models.*;
 import me.steven.mocolors.gui.PainterScreen;
 import me.steven.mocolors.gui.PainterScreenHandler;
 import me.steven.mocolors.items.PainterBakedModel;
+import me.steven.mocolors.utils.ColorUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -16,8 +16,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.SlabType;
@@ -25,12 +23,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 
 public class MoColorsClient implements ClientModInitializer {
     @Override
@@ -98,21 +91,11 @@ public class MoColorsClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
             if (Screen.hasControlDown()) {
-                ItemStack stack = MinecraftClient.getInstance().player.getMainHandStack();
-                ClientWorld world = MinecraftClient.getInstance().world;
-                HitResult hit = MinecraftClient.getInstance().crosshairTarget;
-                if (world != null && stack.getItem() == MoColors.PAINTER_ITEM && hit != null && hit.getType() == HitResult.Type.BLOCK) {
-                    BlockPos pos = new BlockPos(((BlockHitResult) hit).getBlockPos());
-                    BlockState blockState = world.getBlockState(pos);
-                    Block block = blockState.getBlock();
-                    if (block instanceof ColoredBlock) {
-                        BlockEntity blockEntity = world.getBlockEntity(pos);
-                        if (!(blockEntity instanceof ColoredBlockEntity)) return;
-                        PacketByteBuf buf = PacketByteBufs.create();
-                        buf.writeInt(((ColoredBlockEntity) blockEntity).getColor());
-                        ClientPlayNetworking.send(MoColors.PAINTER_COLOR_PICK_PACKET, buf);
-                    }
-                }
+                ColorUtils.getColor().ifPresent((color) -> {
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeInt(color);
+                    ClientPlayNetworking.send(MoColors.PAINTER_COLOR_PICK_PACKET, buf);
+                });
             }
         });
     }
