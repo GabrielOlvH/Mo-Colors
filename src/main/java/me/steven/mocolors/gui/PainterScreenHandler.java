@@ -1,6 +1,7 @@
 package me.steven.mocolors.gui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WTextField;
@@ -19,6 +20,9 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class PainterScreenHandler extends SyncedGuiDescription  {
+
+    public static final Identifier PAINTER_SCREEN_BG = new Identifier(MoColors.MOD_ID, "textures/gui/painter_bg.png");
+
     private static final Pattern VALID_REGEX = Pattern.compile("#[A-F0-9]+");
 
     public static final Identifier SCREEN_ID = new Identifier(MoColors.MOD_ID, "painter_screen");
@@ -53,6 +57,14 @@ public class PainterScreenHandler extends SyncedGuiDescription  {
         hexCode.setSize(50, 20);
 
         root.validate(this);
+    }
+
+    @Override
+    public void addPainters() {
+        if (this.rootPanel != null && !this.fullscreen) {
+            this.rootPanel.setBackgroundPainter((x, y, panel) ->
+                    ScreenDrawing.texturedRect(x - 6, y - 6, panel.getWidth() + 12, panel.getHeight() + 12, PAINTER_SCREEN_BG, -1));
+        }
     }
 
     @Override
