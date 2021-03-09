@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -21,10 +22,12 @@ import java.util.OptionalInt;
 public class ColorUtils {
     @Environment(EnvType.CLIENT)
     public static OptionalInt getColor() {
-        ItemStack stack = MinecraftClient.getInstance().player.getMainHandStack();
+        PlayerEntity player = MinecraftClient.getInstance().player;
         ClientWorld world = MinecraftClient.getInstance().world;
+        if (player == null || world == null) return OptionalInt.empty();
+        ItemStack stack = player.getMainHandStack();
         HitResult hit = MinecraftClient.getInstance().crosshairTarget;
-        if (world != null && stack.getItem() == MoColors.PAINTER_ITEM && hit != null && hit.getType() == HitResult.Type.BLOCK) {
+        if (stack.getItem() == MoColors.PAINTER_ITEM && hit != null && hit.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = new BlockPos(((BlockHitResult) hit).getBlockPos());
             BlockState blockState = world.getBlockState(pos);
             Block block = blockState.getBlock();
