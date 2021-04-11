@@ -26,6 +26,9 @@ import java.util.function.Supplier;
 
 public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedModel {
 
+    private static final SpriteIdentifier STICK_SPRITE_ID = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("item/stick"));
+    private Sprite stickSprite = null;
+
     private BakedModel handleModel;
     private BakedModel rollerModel;
 
@@ -77,7 +80,7 @@ public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedM
 
     @Override
     public Sprite getSprite() {
-        return null;
+        return stickSprite;
     }
 
     @Override
@@ -108,6 +111,7 @@ public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedM
     public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
         rollerModel = loader.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_roller"), "inventory")).bake(loader, textureGetter, rotationContainer, modelId);
         handleModel = loader.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_handle"), "inventory")).bake(loader, textureGetter, rotationContainer, modelId);
+        stickSprite = textureGetter.apply(STICK_SPRITE_ID);
         return this;
     }
 }
