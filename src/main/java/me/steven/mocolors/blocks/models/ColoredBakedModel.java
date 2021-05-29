@@ -1,9 +1,9 @@
 package me.steven.mocolors.blocks.models;
 
 import com.mojang.datafixers.util.Pair;
-import me.steven.mocolors.blocks.ColoredBlockEntity;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
@@ -35,9 +35,8 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
-        ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
+        int rawColor = getColor(blockRenderView, blockPos);
         ctx.pushTransform((q) -> {
-            int rawColor = blockEntity.getColor();
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
             return true;
@@ -101,5 +100,11 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
     @Override
     public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return Collections.emptyList();
+    }
+
+    public int getColor(BlockRenderView view, BlockPos pos) {
+        Object obj = ((RenderAttachedBlockView) view).getBlockEntityRenderAttachment(pos);
+        if (obj == null) return -1;
+        return (int) obj;
     }
 }

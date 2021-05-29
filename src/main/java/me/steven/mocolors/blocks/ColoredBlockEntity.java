@@ -2,15 +2,17 @@ package me.steven.mocolors.blocks;
 
 import me.steven.mocolors.MoColors;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public class ColoredBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
+public class ColoredBlockEntity extends BlockEntity implements BlockEntityClientSerializable, RenderAttachmentBlockEntity {
 
-    private int color;
+    private int color = -1;
 
     public ColoredBlockEntity(BlockPos pos, BlockState blockState) {
         super(MoColors.COLORED_BLOCK_ENTITY_TYPE, pos, blockState);
@@ -46,5 +48,10 @@ public class ColoredBlockEntity extends BlockEntity implements BlockEntityClient
     public NbtCompound toClientTag(NbtCompound tag) {
         tag.putInt("c", color);
         return tag;
+    }
+
+    @Override
+    public @Nullable Object getRenderAttachmentData() {
+        return color;
     }
 }

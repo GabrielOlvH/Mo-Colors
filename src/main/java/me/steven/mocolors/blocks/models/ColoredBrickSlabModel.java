@@ -1,9 +1,9 @@
 package me.steven.mocolors.blocks.models;
 
 import me.steven.mocolors.MoColors;
-import me.steven.mocolors.blocks.ColoredSlabBlockEntity;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.enums.SlabType;
@@ -28,7 +28,8 @@ public class ColoredBrickSlabModel extends ColoredBrickModel {
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
-        ColoredSlabBlockEntity blockEntity = (ColoredSlabBlockEntity) blockRenderView.getBlockEntity(blockPos);
+        Object obj = ((RenderAttachedBlockView) blockRenderView).getBlockEntityRenderAttachment(blockPos);
+        int[] rawColor = obj == null ? new int[]{-1, -1} : (int[]) obj;
         ctx.pushTransform((q) -> {
             q.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
             return true;
@@ -36,8 +37,7 @@ public class ColoredBrickSlabModel extends ColoredBrickModel {
         SlabType type = blockState.get(SlabBlock.TYPE);
         if (type == SlabType.TOP || type == SlabType.DOUBLE) {
             ctx.pushTransform((q) -> {
-                int rawColor = blockEntity.getTopColor();
-                int color = 255 << 24 | rawColor;
+                int color = 255 << 24 | rawColor[0];
                 q.spriteColor(0, color, color, color, color);
                 return true;
             });
@@ -47,8 +47,7 @@ public class ColoredBrickSlabModel extends ColoredBrickModel {
 
         if (type == SlabType.BOTTOM || type == SlabType.DOUBLE) {
             ctx.pushTransform((q) -> {
-                int rawColor = blockEntity.getBottomColor();
-                int color = 255 << 24 | rawColor;
+                int color = 255 << 24 | rawColor[1];
                 q.spriteColor(0, color, color, color, color);
                 return true;
             });

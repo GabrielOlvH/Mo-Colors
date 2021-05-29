@@ -2,16 +2,18 @@ package me.steven.mocolors.blocks;
 
 import me.steven.mocolors.MoColors;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public class ColoredSlabBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
+public class ColoredSlabBlockEntity extends BlockEntity implements BlockEntityClientSerializable, RenderAttachmentBlockEntity {
 
-    private int topColor;
-    private int bottomColor;
+    private int topColor = -1;
+    private int bottomColor = -1;
 
     public ColoredSlabBlockEntity(BlockPos pos, BlockState blockState) {
         super(MoColors.COLORED_SLAB_BLOCK_ENTITY_TYPE, pos, blockState);
@@ -59,5 +61,10 @@ public class ColoredSlabBlockEntity extends BlockEntity implements BlockEntityCl
         tag.putInt("top", topColor);
         tag.putInt("bottom", bottomColor);
         return tag;
+    }
+
+    @Override
+    public @Nullable Object getRenderAttachmentData() {
+        return new int[] {topColor, bottomColor};
     }
 }

@@ -1,6 +1,5 @@
 package me.steven.mocolors.blocks.models;
 
-import me.steven.mocolors.blocks.ColoredBlockEntity;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
@@ -46,9 +45,8 @@ public class ColoredGlassPaneModel extends ColoredBakedModel {
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
-        ColoredBlockEntity blockEntity = (ColoredBlockEntity) blockRenderView.getBlockEntity(blockPos);
+        int rawColor = getColor(blockRenderView, blockPos);
         ctx.pushTransform((q) -> {
-            int rawColor = blockEntity.getColor();
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
             return true;
