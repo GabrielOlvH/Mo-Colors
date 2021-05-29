@@ -23,9 +23,10 @@ public class ColoredGlassPaneBlock extends PaneBlock implements BlockEntityProvi
         super(FabricBlockSettings.copyOf(Blocks.WHITE_STAINED_GLASS_PANE).nonOpaque());
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ColoredBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ColoredBlockEntity(pos, state);
     }
 
     @Override

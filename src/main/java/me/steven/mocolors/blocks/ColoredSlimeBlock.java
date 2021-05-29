@@ -23,9 +23,12 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
         super(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK).nonOpaque());
     }
 
+
+
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ColoredBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ColoredBlockEntity(pos, state);
     }
 
     @Override

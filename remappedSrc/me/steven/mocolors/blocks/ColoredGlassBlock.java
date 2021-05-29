@@ -1,10 +1,10 @@
 package me.steven.mocolors.blocks;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.GlassBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,20 +18,19 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredConcreteBlock extends Block implements BlockEntityProvider, ColoredBlock {
-    public ColoredConcreteBlock() {
-        super(FabricBlockSettings.copyOf(Blocks.BLACK_CONCRETE).nonOpaque());
+public class ColoredGlassBlock extends GlassBlock implements BlockEntityProvider, ColoredBlock {
+    public ColoredGlassBlock() {
+        super(FabricBlockSettings.copyOf(Blocks.GLASS));
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ColoredBlockEntity(pos, state);
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ColoredBlockEntity();
     }
 
     @Override
     public @Nullable Item getCleanItem() {
-        return Items.WHITE_CONCRETE;
+        return Items.WHITE_STAINED_GLASS;
     }
 
     @Override
@@ -48,13 +47,14 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        int color = itemStack.getOrCreateTag().getInt("Color");
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof ColoredBlockEntity) {
-            ((ColoredBlockEntity) blockEntity).setColor(color);
-            blockEntity.markDirty();
-            if (!world.isClient())
-            ((ColoredBlockEntity) blockEntity).sync();
+        if (!world.isClient()) {
+            int color = itemStack.getOrCreateTag().getInt("Color");
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof ColoredBlockEntity) {
+                ((ColoredBlockEntity) blockEntity).setColor(color);
+                blockEntity.markDirty();
+                ((ColoredBlockEntity) blockEntity).sync();
+            }
         }
     }
 

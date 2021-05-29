@@ -23,9 +23,10 @@ public class ColoredWoolBlock extends Block implements BlockEntityProvider, Colo
         super(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque());
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ColoredBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ColoredBlockEntity(pos, state);
     }
 
     @Override

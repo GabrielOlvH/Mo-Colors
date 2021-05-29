@@ -23,9 +23,10 @@ public class ColoredGlassBlock extends GlassBlock implements BlockEntityProvider
         super(FabricBlockSettings.copyOf(Blocks.GLASS));
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ColoredBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ColoredBlockEntity(pos, state);
     }
 
     @Override

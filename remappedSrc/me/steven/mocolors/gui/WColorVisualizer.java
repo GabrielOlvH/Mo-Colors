@@ -11,9 +11,9 @@ public class WColorVisualizer extends WWidget {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        ScreenDrawing.coloredRect(matrices, x - 1, y - 1, width + 2, height + 2, -1);
+        ScreenDrawing.coloredRect(x - 1, y - 1, width + 2, height + 2, -1);
         int color = 255 << 24 | colorProvider.get();
-        ScreenDrawing.coloredRect(matrices, x, y, width, height, color);
+        ScreenDrawing.coloredRect(x, y, width, height, color);
     }
 
     public void setColorProvider(Supplier<Integer> color) {

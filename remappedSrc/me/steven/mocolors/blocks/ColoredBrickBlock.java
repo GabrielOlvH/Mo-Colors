@@ -18,20 +18,20 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredConcreteBlock extends Block implements BlockEntityProvider, ColoredBlock {
-    public ColoredConcreteBlock() {
-        super(FabricBlockSettings.copyOf(Blocks.BLACK_CONCRETE).nonOpaque());
+public class ColoredBrickBlock extends Block implements BlockEntityProvider, ColoredBlock {
+
+    public ColoredBrickBlock() {
+        super(FabricBlockSettings.copyOf(Blocks.BRICKS));
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ColoredBlockEntity(pos, state);
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ColoredBlockEntity();
     }
 
     @Override
     public @Nullable Item getCleanItem() {
-        return Items.WHITE_CONCRETE;
+        return Items.BRICKS;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
             ((ColoredBlockEntity) blockEntity).setColor(color);
             blockEntity.markDirty();
             if (!world.isClient())
-            ((ColoredBlockEntity) blockEntity).sync();
+                ((ColoredBlockEntity) blockEntity).sync();
         }
     }
 

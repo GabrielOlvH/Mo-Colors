@@ -25,9 +25,10 @@ public class ColoredBrickStairsBlock extends StairsBlock implements BlockEntityP
         super(MoColors.COLORED_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BRICKS));
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ColoredBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ColoredBlockEntity(pos, state);
     }
 
     @Override

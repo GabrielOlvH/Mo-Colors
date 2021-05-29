@@ -62,8 +62,8 @@ public class PainterScreenHandler extends SyncedGuiDescription  {
     @Override
     public void addPainters() {
         if (this.rootPanel != null && !this.fullscreen) {
-            this.rootPanel.setBackgroundPainter((matrices, x, y, panel) ->
-                    ScreenDrawing.texturedRect(matrices, x - 6, y - 6, panel.getWidth() + 12, panel.getHeight() + 12, PAINTER_SCREEN_BG, -1));
+            this.rootPanel.setBackgroundPainter((x, y, panel) ->
+                    ScreenDrawing.texturedRect(x - 6, y - 6, panel.getWidth() + 12, panel.getHeight() + 12, PAINTER_SCREEN_BG, -1));
         }
     }
 

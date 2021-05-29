@@ -1,10 +1,11 @@
 package me.steven.mocolors.blocks;
 
+import me.steven.mocolors.MoColors;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,20 +19,20 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredConcreteBlock extends Block implements BlockEntityProvider, ColoredBlock {
-    public ColoredConcreteBlock() {
-        super(FabricBlockSettings.copyOf(Blocks.BLACK_CONCRETE).nonOpaque());
+public class ColoredBrickStairsBlock extends StairsBlock implements BlockEntityProvider, ColoredBlock {
+
+    public ColoredBrickStairsBlock() {
+        super(MoColors.COLORED_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BRICKS));
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ColoredBlockEntity(pos, state);
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ColoredBlockEntity();
     }
 
     @Override
     public @Nullable Item getCleanItem() {
-        return Items.WHITE_CONCRETE;
+        return Items.BRICK_STAIRS;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
             ((ColoredBlockEntity) blockEntity).setColor(color);
             blockEntity.markDirty();
             if (!world.isClient())
-            ((ColoredBlockEntity) blockEntity).sync();
+                ((ColoredBlockEntity) blockEntity).sync();
         }
     }
 

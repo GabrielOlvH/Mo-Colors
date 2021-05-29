@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,10 +27,9 @@ public class ColoredBrickSlabBlock extends SlabBlock implements BlockEntityProvi
         super(FabricBlockSettings.copyOf(Blocks.BRICKS));
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ColoredSlabBlockEntity(pos, state);
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ColoredSlabBlockEntity();
     }
 
     @Override

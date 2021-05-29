@@ -6,14 +6,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
 
 public class ColoredBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
 
     private int color;
 
-    public ColoredBlockEntity(BlockPos pos, BlockState blockState) {
-        super(MoColors.COLORED_BLOCK_ENTITY_TYPE, pos, blockState);
+    public ColoredBlockEntity() {
+        super(MoColors.COLORED_BLOCK_ENTITY_TYPE);
     }
 
     public int getColor() {
@@ -25,8 +24,8 @@ public class ColoredBlockEntity extends BlockEntity implements BlockEntityClient
     }
 
     @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
+    public void readNbt(BlockState state, NbtCompound tag) {
+        super.readNbt(state, tag);
         this.color = tag.getInt("c");
     }
 

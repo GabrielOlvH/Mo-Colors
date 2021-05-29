@@ -23,10 +23,9 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
         super(FabricBlockSettings.copyOf(Blocks.BLACK_CONCRETE).nonOpaque());
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ColoredBlockEntity(pos, state);
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ColoredBlockEntity();
     }
 
     @Override
