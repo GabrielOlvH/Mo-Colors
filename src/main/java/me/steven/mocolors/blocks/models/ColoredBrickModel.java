@@ -17,31 +17,10 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 
-public class ColoredBrickModel extends ColoredBakedModel {
+public class ColoredBrickModel extends ColoredBasicModel {
 
-    protected BakedModel brickBakedModel;
-    protected Sprite sprite;
-    private final SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(MoColors.MOD_ID, "block/gray_bricks"));
-
-    @Override
-    public BakedModel getBaseBakedModel() {
-        return brickBakedModel;
-    }
-
-    @Override
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    @Override
-    public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
-        return Collections.singleton(spriteId);
-    }
-
-    @Override
-    public @Nullable BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        brickBakedModel = loader.getOrLoadModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks")).bake(loader, textureGetter, rotationContainer, modelId);
-        sprite = textureGetter.apply(spriteId);
-        return this;
+    public ColoredBrickModel() {
+        super(new Identifier(MoColors.MOD_ID, "block/colored_bricks"),
+                new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(MoColors.MOD_ID, "block/gray_bricks")));
     }
 }

@@ -25,17 +25,17 @@ import java.util.function.Supplier;
 
 public class ColoredGlassPaneModel extends ColoredBakedModel {
 
-    private BakedModel paneNoSide;
-    private BakedModel paneNoSideRotY270;
-    private BakedModel paneNoSideAlt;
-    private BakedModel paneNoSideAltRotY90;
-    private BakedModel paneSide;
-    private BakedModel paneSideRotY90;
-    private BakedModel paneSideAlt;
-    private BakedModel paneSideAltRotY90;
-    private BakedModel panePost;
-    private BakedModel itemModel;
-    private Sprite sprite;
+    public BakedModel paneNoSide;
+    public BakedModel paneNoSideRotY270;
+    public BakedModel paneNoSideAlt;
+    public BakedModel paneNoSideAltRotY90;
+    public BakedModel paneSide;
+    public BakedModel paneSideRotY90;
+    public BakedModel paneSideAlt;
+    public BakedModel paneSideAltRotY90;
+    public BakedModel panePost;
+    public BakedModel itemModel;
+    public Sprite sprite;
     private final SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("block/white_stained_glass"));
 
     @Override

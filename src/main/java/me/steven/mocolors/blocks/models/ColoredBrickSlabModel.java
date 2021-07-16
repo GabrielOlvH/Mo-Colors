@@ -23,8 +23,8 @@ import java.util.function.Supplier;
 
 public class ColoredBrickSlabModel extends ColoredBrickModel {
 
-    private BakedModel bottomModel;
-    private BakedModel topModel;
+    public BakedModel bottomModel;
+    public BakedModel topModel;
 
     @Override
     public void emitBlockQuads(BlockRenderView blockRenderView, BlockState blockState, BlockPos blockPos, Supplier<Random> supplier, RenderContext ctx) {
@@ -61,7 +61,7 @@ public class ColoredBrickSlabModel extends ColoredBrickModel {
     @Override
     public @Nullable BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
         super.bake(loader, textureGetter, rotationContainer, modelId);
-        brickBakedModel = loader.getOrLoadModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks_slab")).bake(loader, textureGetter, rotationContainer, modelId);
+        model = loader.getOrLoadModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks_slab")).bake(loader, textureGetter, rotationContainer, modelId);
         bottomModel = loader.getOrLoadModel(new Identifier("block/slab")).bake(loader, textureGetter, rotationContainer, modelId);
         topModel = loader.getOrLoadModel(new Identifier("block/slab_top")).bake(loader, textureGetter, rotationContainer, modelId);
         return this;

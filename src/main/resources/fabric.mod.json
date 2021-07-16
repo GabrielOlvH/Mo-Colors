@@ -30,6 +30,13 @@
   "custom": {
     "cardinal-components": [
       "mocolors:color"
+    ],
+    "dashloader:customobject":  [
+      "me.steven.mocolors.compat.dash.DashBasicModel",
+      "me.steven.mocolors.compat.dash.DashBrickSlabModel",
+      "me.steven.mocolors.compat.dash.DashBrickStairsModel",
+      "me.steven.mocolors.compat.dash.DashGlassPaneModel",
+      "me.steven.mocolors.compat.dash.DashPainterModel"
     ]
   },
   "mixins": [

@@ -23,7 +23,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.util.Identifier;
 
 public class MoColorsClient implements ClientModInitializer {
     @Override
@@ -32,12 +35,12 @@ public class MoColorsClient implements ClientModInitializer {
         HudRenderCallback.EVENT.register(new HudRenderer());
 
         PainterBakedModel painterBakedModel = new PainterBakedModel();
-        ColoredBakedModel glassBakedModel = new ColoredGlassBakedModel();
-        ColoredBakedModel slimeBakedModel = new ColoredSlimeBakedModel();
+        ColoredBakedModel glassBakedModel = new ColoredBasicModel(new Identifier("block/white_stained_glass"), new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("block/white_stained_glass")));
+        ColoredBakedModel slimeBakedModel = new ColoredBasicModel(new Identifier(MoColors.MOD_ID, "block/colored_slime"), new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(MoColors.MOD_ID, "block/gray_slime_block")));
         ColoredBakedModel glassPaneBakedModel = new ColoredGlassPaneModel();
-        ColoredBakedModel woolBakedModel = new ColoredWoolBakedModel();
-        ColoredBakedModel concreteBakedModel = new ColoredConcreteBakedModel();
-        ColoredBakedModel brickBakedModel = new ColoredBrickModel();
+        ColoredBakedModel woolBakedModel = new ColoredBasicModel(new Identifier("block/white_wool"), new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("block/white_wool")));
+        ColoredBakedModel concreteBakedModel = new ColoredBasicModel(new Identifier("block/white_concrete"), new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("block/white_concrete")));
+        ColoredBakedModel brickBakedModel = new ColoredBasicModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks"), new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(MoColors.MOD_ID, "block/gray_bricks")));
         ColoredBakedModel brickSlabBakedModel = new ColoredBrickSlabModel();
         ColoredBakedModel brickStairsBakedModel = new ColoredBrickStairsModel();
         ModelLoadingRegistry.INSTANCE.registerVariantProvider((res) -> (modelId, ctx) -> {

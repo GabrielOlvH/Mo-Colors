@@ -18,6 +18,15 @@ repositories {
 			includeGroup "io.github.cottonmc"
 		}
 	}
+
+	maven {
+		name = "DashLoader"
+		url = "https://oskarstrom.net/maven"
+		content {
+			includeGroup "net.oskarstrom"
+		}
+	}
+	mavenCentral()
 }
 
 dependencies {
@@ -35,6 +44,8 @@ dependencies {
 	include("io.github.cottonmc:LibGui:${project.libgui_version}") {
 		exclude group: "net.fabricmc.fabric-api", module: "fabric-api"
 	}
+
+	modImplementation("net.oskarstrom:DashLoader:2.0-dev12")
 
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.

@@ -27,10 +27,10 @@ import java.util.function.Supplier;
 public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedModel {
 
     private static final SpriteIdentifier STICK_SPRITE_ID = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("item/stick"));
-    private Sprite stickSprite = null;
+    public Sprite stickSprite = null;
 
-    private BakedModel handleModel;
-    private BakedModel rollerModel;
+    public BakedModel handleModel;
+    public BakedModel rollerModel;
 
     @Override
     public boolean isVanillaAdapter() {

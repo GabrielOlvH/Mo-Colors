@@ -51,7 +51,7 @@ public class ColoredBrickStairsModel extends ColoredBrickModel {
     @Override
     public @Nullable BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
         super.bake(loader, textureGetter, rotationContainer, modelId);
-        brickBakedModel = loader.getOrLoadModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks_stairs")).bake(loader, textureGetter, rotationContainer, modelId);
+        model = loader.getOrLoadModel(new Identifier(MoColors.MOD_ID, "block/colored_bricks_stairs")).bake(loader, textureGetter, rotationContainer, modelId);
         return this;
     }
 }
