@@ -48,7 +48,7 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
     @Override
     public void emitItemQuads(ItemStack itemStack, Supplier<Random> supplier, RenderContext ctx) {
         ctx.pushTransform((q) -> {
-            int rawColor = itemStack.getOrCreateTag().getInt("Color");
+            int rawColor = itemStack.getOrCreateNbt().getInt("Color");
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
             return true;

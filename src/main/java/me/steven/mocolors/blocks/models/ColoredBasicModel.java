@@ -34,7 +34,7 @@ public class ColoredBasicModel extends ColoredBakedModel {
     }
 
     @Override
-    public Sprite getSprite() {
+    public Sprite getParticleSprite() {
         return sprite;
     }
 

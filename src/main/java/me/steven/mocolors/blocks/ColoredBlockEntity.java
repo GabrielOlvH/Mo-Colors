@@ -1,16 +1,22 @@
 package me.steven.mocolors.blocks;
 
+import com.google.common.base.Preconditions;
 import me.steven.mocolors.MoColors;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class ColoredBlockEntity extends BlockEntity implements BlockEntityClientSerializable, RenderAttachmentBlockEntity {
+public class ColoredBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
 
     private int color = -1;
 
@@ -26,28 +32,40 @@ public class ColoredBlockEntity extends BlockEntity implements BlockEntityClient
         this.color = rgb;
     }
 
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public final NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbt = super.toInitialChunkDataNbt();
+        writeNbt(nbt);
+        return nbt;
+    }
+
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         this.color = tag.getInt("c");
+
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && world != null) {
+            MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, null, null, 8);
+        }
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         tag.putInt("c", color);
-        return super.writeNbt(tag);
     }
 
-    @Override
-    public void fromClientTag(NbtCompound tag) {
-        this.color = tag.getInt("c");
-        MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, null, null, 8);
-    }
+    public void sync() {
+        Preconditions.checkNotNull(world); // Maintain distinct failure case from below
+        if (!(world instanceof ServerWorld))
+            throw new IllegalStateException("Cannot call sync() on the logical client! Did you check world.isClient first?");
 
-    @Override
-    public NbtCompound toClientTag(NbtCompound tag) {
-        tag.putInt("c", color);
-        return tag;
+        ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
     }
 
     @Override

@@ -4,7 +4,6 @@ import me.steven.mocolors.blocks.ColoredBlock;
 import me.steven.mocolors.blocks.ColoredBlockEntity;
 import me.steven.mocolors.blocks.ColoredSlabBlockEntity;
 import me.steven.mocolors.utils.ConvertableBlocks;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -42,7 +41,13 @@ public class MixinBlock implements ColoredBlock {
         } else return false;
         blockEntity.markDirty();
         if (!world.isClient) {
-            ((BlockEntityClientSerializable) blockEntity).sync();
+            if (blockEntity instanceof ColoredBlockEntity) {
+                ((ColoredBlockEntity) blockEntity).sync();
+            }
+
+            if (blockEntity instanceof ColoredSlabBlockEntity) {
+                ((ColoredSlabBlockEntity) blockEntity).sync();
+            }
         }
 
         return true;

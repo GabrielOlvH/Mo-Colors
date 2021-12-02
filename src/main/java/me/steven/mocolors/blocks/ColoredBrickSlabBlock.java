@@ -43,12 +43,12 @@ public class ColoredBrickSlabBlock extends SlabBlock implements BlockEntityProvi
         SlabType type = state.get(TYPE);
         if (type == SlabType.TOP || type == SlabType.DOUBLE) {
             ItemStack topStack = new ItemStack(this);
-            topStack.getOrCreateTag().putInt("Color", ((ColoredSlabBlockEntity) blockEntity).getTopColor());
+            topStack.getOrCreateNbt().putInt("Color", ((ColoredSlabBlockEntity) blockEntity).getTopColor());
             dropStack(world, pos, topStack);
         }
         if (type == SlabType.BOTTOM || type == SlabType.DOUBLE) {
             ItemStack bottomStack = new ItemStack(this);
-            bottomStack.getOrCreateTag().putInt("Color", ((ColoredSlabBlockEntity) blockEntity).getBottomColor());
+            bottomStack.getOrCreateNbt().putInt("Color", ((ColoredSlabBlockEntity) blockEntity).getBottomColor());
             dropStack(world, pos, bottomStack);
         }
     }
@@ -56,7 +56,7 @@ public class ColoredBrickSlabBlock extends SlabBlock implements BlockEntityProvi
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        int color = itemStack.getOrCreateTag().getInt("Color");
+        int color = itemStack.getOrCreateNbt().getInt("Color");
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof ColoredSlabBlockEntity) {
             ColoredSlabBlockEntity slabBlockEntity = ((ColoredSlabBlockEntity) blockEntity);
@@ -81,9 +81,9 @@ public class ColoredBrickSlabBlock extends SlabBlock implements BlockEntityProvi
             if (blockEntity instanceof ColoredSlabBlockEntity) {
                 ColoredSlabBlockEntity slabBlockEntity = ((ColoredSlabBlockEntity) blockEntity);
                 if (blockState.get(TYPE) == SlabType.BOTTOM) {
-                    slabBlockEntity.setTopColor(ctx.getStack().getOrCreateTag().getInt("Color"));
+                    slabBlockEntity.setTopColor(ctx.getStack().getOrCreateNbt().getInt("Color"));
                 } else if (blockState.get(TYPE) == SlabType.TOP) {
-                    slabBlockEntity.setBottomColor(ctx.getStack().getOrCreateTag().getInt("Color"));
+                    slabBlockEntity.setBottomColor(ctx.getStack().getOrCreateNbt().getInt("Color"));
                 }
                 slabBlockEntity.markDirty();
                 if (!ctx.getWorld().isClient())

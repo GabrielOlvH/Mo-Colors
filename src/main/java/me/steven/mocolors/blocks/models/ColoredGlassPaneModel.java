@@ -68,7 +68,7 @@ public class ColoredGlassPaneModel extends ColoredBakedModel {
         if (itemModel == null)
             itemModel = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(new Identifier("white_stained_glass_pane"), "inventory"));
         ctx.pushTransform((q) -> {
-            int rawColor = itemStack.getOrCreateTag().getInt("Color");
+            int rawColor = itemStack.getOrCreateNbt().getInt("Color");
             int color = 255 << 24 | rawColor;
             q.spriteColor(0, color, color, color, color);
             return true;
@@ -83,7 +83,7 @@ public class ColoredGlassPaneModel extends ColoredBakedModel {
     }
 
     @Override
-    public Sprite getSprite() {
+    public Sprite getParticleSprite() {
         return sprite;
     }
 

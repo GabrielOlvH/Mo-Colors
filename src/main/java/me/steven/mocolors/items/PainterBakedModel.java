@@ -45,7 +45,7 @@ public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedM
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
         context.fallbackConsumer().accept(handleModel);
         context.pushTransform((q) -> {
-            int color = 255 << 24 | stack.getOrCreateTag().getInt("Color");
+            int color = 255 << 24 | stack.getOrCreateNbt().getInt("Color");
             q.spriteColor(0, color, color, color, color);
             return true;
         });
@@ -79,7 +79,7 @@ public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedM
     }
 
     @Override
-    public Sprite getSprite() {
+    public Sprite getParticleSprite() {
         return stickSprite;
     }
 

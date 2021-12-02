@@ -40,7 +40,7 @@ public class ColoredBrickBlock extends Block implements BlockEntityProvider, Col
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         player.addExhaustion(0.005F);
         getDroppedStacks(state, (ServerWorld)world, pos, blockEntity, player, stack).forEach((itemStack) -> {
-            itemStack.getOrCreateTag().putInt("Color", ((ColoredBlockEntity)blockEntity).getColor());
+            itemStack.getOrCreateNbt().putInt("Color", ((ColoredBlockEntity)blockEntity).getColor());
             dropStack(world, pos, itemStack);
         });
         state.onStacksDropped((ServerWorld)world, pos, stack);
@@ -49,7 +49,7 @@ public class ColoredBrickBlock extends Block implements BlockEntityProvider, Col
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        int color = itemStack.getOrCreateTag().getInt("Color");
+        int color = itemStack.getOrCreateNbt().getInt("Color");
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof ColoredBlockEntity) {
             ((ColoredBlockEntity) blockEntity).setColor(color);
@@ -63,7 +63,7 @@ public class ColoredBrickBlock extends Block implements BlockEntityProvider, Col
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         ItemStack stack = super.getPickStack(world, pos, state);
         ColoredBlockEntity blockEntity = (ColoredBlockEntity) world.getBlockEntity(pos);
-        stack.getOrCreateTag().putInt("Color", blockEntity.getColor());
+        stack.getOrCreateNbt().putInt("Color", blockEntity.getColor());
         return stack;
     }
 }

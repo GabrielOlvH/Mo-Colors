@@ -68,7 +68,7 @@ public class MoColors implements ModInitializer {
 			server.execute(() -> {
 				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 				if (stack.getItem() == PAINTER_ITEM)
-					stack.getOrCreateTag().putInt("Color", color);
+					stack.getOrCreateNbt().putInt("Color", color);
 			});
 		});
 
@@ -77,7 +77,7 @@ public class MoColors implements ModInitializer {
 			server.execute(() -> {
 				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 				if (stack.getItem() == PAINTER_ITEM) {
-					stack.getOrCreateTag().putInt("Color", color);
+					stack.getOrCreateNbt().putInt("Color", color);
 					player.sendMessage(new LiteralText("Picked color #" + Integer.toHexString(color).toUpperCase(Locale.ROOT)).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))), true);
 				}
 			});

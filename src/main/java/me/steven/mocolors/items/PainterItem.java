@@ -61,6 +61,6 @@ public class PainterItem extends Item implements NamedScreenHandlerFactory {
     }
 
     public static int getColor(ItemStack stack) {
-        return stack.getOrCreateTag().getInt("Color");
+        return stack.getOrCreateNbt().getInt("Color");
     }
 }

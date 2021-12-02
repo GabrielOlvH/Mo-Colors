@@ -23,8 +23,6 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
         super(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK).nonOpaque());
     }
 
-
-
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
@@ -41,7 +39,7 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         player.addExhaustion(0.005F);
         getDroppedStacks(state, (ServerWorld)world, pos, blockEntity, player, stack).forEach((itemStack) -> {
-            itemStack.getOrCreateTag().putInt("Color", ((ColoredBlockEntity)blockEntity).getColor());
+            itemStack.getOrCreateNbt().putInt("Color", ((ColoredBlockEntity)blockEntity).getColor());
             dropStack(world, pos, itemStack);
         });
         state.onStacksDropped((ServerWorld)world, pos, stack);
@@ -51,7 +49,7 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient()) {
-            int color = itemStack.getOrCreateTag().getInt("Color");
+            int color = itemStack.getOrCreateNbt().getInt("Color");
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ColoredBlockEntity) {
                 ((ColoredBlockEntity) blockEntity).setColor(color);
@@ -65,7 +63,7 @@ public class ColoredSlimeBlock extends SlimeBlock implements BlockEntityProvider
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         ItemStack stack = super.getPickStack(world, pos, state);
         ColoredBlockEntity blockEntity = (ColoredBlockEntity) world.getBlockEntity(pos);
-        stack.getOrCreateTag().putInt("Color", blockEntity.getColor());
+        stack.getOrCreateNbt().putInt("Color", blockEntity.getColor());
         return stack;
     }
 }
