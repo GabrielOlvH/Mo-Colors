@@ -1,6 +1,6 @@
 # Mo' Colors
 
-Mo Colors adds a Painter which can be crafted with two sticks and one wool.
+Mo Colors adds a painter which can be crafted with two sticks and one wool.
 
 ![Logo](https://i.imgur.com/9gl9ect.png)
 
