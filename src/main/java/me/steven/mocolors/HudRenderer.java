@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.util.Locale;
 
@@ -17,11 +17,11 @@ public class HudRenderer implements HudRenderCallback {
         ColorUtils.getColor().ifPresent((color) -> {
             int x = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
             int y = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
-            LiteralText colorPickTxt = new LiteralText("Ctrl to pick color");
+            Text colorPickTxt = Text.literal("Ctrl to pick color");
             int width = textRenderer.getWidth(colorPickTxt);
             textRenderer.draw(matrices, colorPickTxt, x, y + 8, -1);
             ScreenDrawing.coloredRect(matrices, x, y + 18, width, textRenderer.fontHeight, 255 << 24 | color);
-            textRenderer.draw(matrices, new LiteralText("#" + Integer.toHexString(color).toUpperCase(Locale.ROOT)), x, y + 19, getTextColor(color));
+            textRenderer.draw(matrices, Text.literal("#" + Integer.toHexString(color).toUpperCase(Locale.ROOT)), x, y + 19, getTextColor(color));
         });
 
     }

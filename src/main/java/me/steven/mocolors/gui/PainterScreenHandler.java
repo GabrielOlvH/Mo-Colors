@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 
@@ -44,7 +45,7 @@ public class PainterScreenHandler extends SyncedGuiDescription  {
         });
 
 
-        WLabel label = new WLabel("Color (#RRGGBB)");
+        WLabel label = new WLabel(Text.literal("Color (#RRGGBB)"));
         root.add(label, 0, 1);
         label.setLocation(0, 22);
 

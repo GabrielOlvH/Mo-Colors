@@ -42,7 +42,7 @@ public class ColoredConcreteBlock extends Block implements BlockEntityProvider, 
             itemStack.getOrCreateNbt().putInt("Color", ((ColoredBlockEntity)blockEntity).getColor());
             dropStack(world, pos, itemStack);
         });
-        state.onStacksDropped((ServerWorld)world, pos, stack);
+        state.onStacksDropped((ServerWorld)world, pos, stack, true);
     }
 
     @Override

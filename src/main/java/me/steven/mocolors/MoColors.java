@@ -13,8 +13,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -78,7 +78,7 @@ public class MoColors implements ModInitializer {
 				ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 				if (stack.getItem() == PAINTER_ITEM) {
 					stack.getOrCreateNbt().putInt("Color", color);
-					player.sendMessage(new LiteralText("Picked color #" + Integer.toHexString(color).toUpperCase(Locale.ROOT)).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))), true);
+					player.sendMessage(Text.literal("Picked color #" + Integer.toHexString(color).toUpperCase(Locale.ROOT)).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))), true);
 				}
 			});
 		});

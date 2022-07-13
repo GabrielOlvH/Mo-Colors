@@ -13,7 +13,6 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -57,7 +56,7 @@ public class PainterItem extends Item implements NamedScreenHandlerFactory {
 
     @Override
     public Text getDisplayName() {
-        return new TranslatableText("item.mocolors.painter");
+        return Text.translatable("item.mocolors.painter");
     }
 
     public static int getColor(ItemStack stack) {
