@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PainterItem extends Item implements NamedScreenHandlerFactory {
     public PainterItem() {
-        super(new Item.Settings().maxCount(1).maxDamage(128).group(ItemGroup.TOOLS));
+        super(new Item.Settings().maxCount(1).maxDamage(128));
     }
 
     @Override

@@ -4,10 +4,7 @@ import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.ModelBakeSettings;
-import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.render.model.ModelRotation;
+import net.minecraft.client.render.model.*;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
@@ -88,16 +85,21 @@ public class ColoredGlassPaneModel extends ColoredBakedModel {
     }
 
     @Override
-    public @Nullable BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        paneNoSide = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside")).bake(loader, textureGetter, rotationContainer, modelId);
-        paneNoSideRotY270 = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside")).bake(loader, textureGetter, ModelRotation.X0_Y270, modelId);
-        paneNoSideAlt = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside_alt")).bake(loader, textureGetter, rotationContainer, modelId);
-        paneNoSideAltRotY90 = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside_alt")).bake(loader, textureGetter, ModelRotation.X0_Y90, modelId);
-        panePost = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_post")).bake(loader, textureGetter, rotationContainer, modelId);
-        paneSide = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side")).bake(loader, textureGetter, rotationContainer, modelId);
-        paneSideRotY90 = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side")).bake(loader, textureGetter, ModelRotation.X0_Y90, modelId);
-        paneSideAlt = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side_alt")).bake(loader, textureGetter, rotationContainer, modelId);
-        paneSideAltRotY90 = loader.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side_alt")).bake(loader, textureGetter, ModelRotation.X0_Y90, modelId);
+    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
+
+    }
+
+    @Override
+    public @Nullable BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+        paneNoSide = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside")).bake(baker, textureGetter, rotationContainer, modelId);
+        paneNoSideRotY270 = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside")).bake(baker, textureGetter, ModelRotation.X0_Y270, modelId);
+        paneNoSideAlt = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside_alt")).bake(baker, textureGetter, rotationContainer, modelId);
+        paneNoSideAltRotY90 = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_noside_alt")).bake(baker, textureGetter, ModelRotation.X0_Y90, modelId);
+        panePost = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_post")).bake(baker, textureGetter, rotationContainer, modelId);
+        paneSide = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side")).bake(baker, textureGetter, rotationContainer, modelId);
+        paneSideRotY90 = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side")).bake(baker, textureGetter, ModelRotation.X0_Y90, modelId);
+        paneSideAlt = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side_alt")).bake(baker, textureGetter, rotationContainer, modelId);
+        paneSideAltRotY90 = baker.getOrLoadModel(new Identifier("block/white_stained_glass_pane_side_alt")).bake(baker, textureGetter, ModelRotation.X0_Y90, modelId);
         sprite = textureGetter.apply(spriteId);
         return this;
     }

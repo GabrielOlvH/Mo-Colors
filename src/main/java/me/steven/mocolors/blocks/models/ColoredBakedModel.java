@@ -101,10 +101,10 @@ public abstract class ColoredBakedModel implements BakedModel, UnbakedModel, Fab
         return Collections.emptyList();
     }
 
-    @Override
+    /*@Override
     public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return Collections.emptyList();
-    }
+    }**/
 
     public int getColor(BlockRenderView view, BlockPos pos) {
         Object obj = ((RenderAttachedBlockView) view).getBlockEntityRenderAttachment(pos);

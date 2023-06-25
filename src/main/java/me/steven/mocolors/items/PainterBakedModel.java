@@ -103,18 +103,24 @@ public class PainterBakedModel implements UnbakedModel, BakedModel, FabricBakedM
     }
 
     @Override
+    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
+
+    }
+
+
+    /*@Override
     public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return Lists.newArrayList(
                 new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("mocolors", "item/painter_roller")),
                 new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier("mocolors", "item/painter_handle"))
         );
-    }
+    }*/
 
     @Nullable
     @Override
-    public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        rollerModel = loader.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_roller"), "inventory")).bake(loader, textureGetter, rotationContainer, modelId);
-        handleModel = loader.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_handle"), "inventory")).bake(loader, textureGetter, rotationContainer, modelId);
+    public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+        rollerModel = baker.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_roller"), "inventory")).bake(baker, textureGetter, rotationContainer, modelId);
+        handleModel = baker.getOrLoadModel(new ModelIdentifier(new Identifier(MoColors.MOD_ID, "painter_handle"), "inventory")).bake(baker, textureGetter, rotationContainer, modelId);
         stickSprite = textureGetter.apply(STICK_SPRITE_ID);
         return this;
     }

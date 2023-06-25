@@ -2,8 +2,8 @@ package me.steven.mocolors.blocks.models;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.Baker;
 import net.minecraft.client.render.model.ModelBakeSettings;
-import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -38,15 +38,20 @@ public class ColoredBasicModel extends ColoredBakedModel {
         return sprite;
     }
 
-    @Override
+  /*  @Override
     public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
         return Collections.singleton(spriteId);
+    }*/
+
+    @Override
+    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
+
     }
 
     @Nullable
     @Override
-    public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        this.model = loader.getOrLoadModel(this.modelId).bake(loader, textureGetter, rotationContainer, modelId);
+    public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+        this.model = baker.getOrLoadModel(this.modelId).bake(baker, textureGetter, rotationContainer, modelId);
         this.sprite = textureGetter.apply(this.spriteId);
         return this;
     }
